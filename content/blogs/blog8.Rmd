@@ -1,0 +1,258 @@
+---
+date: "2020-09-20-"
+description: Climate Change and Temperature Anomalies.
+draft: false
+image: pic07.jpg
+keywords: ""
+slug: blog8
+title: Climate Change and Temperature Anomalies
+---
+```{r load-libraries, include=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(httr)
+library(readxl)
+library(vroom)
+library(infer)
+library(patchwork)
+library(kableExtra)
+library(scales)
+```
+
+## To study climate change, we use: data on the *Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies* in the Northern Hemisphere at [NASA's Goddard Institute for Space Studies](https://data.giss.nasa.gov/gistemp) and the [tabular data of temperature anomalies can be found here](https://data.giss.nasa.gov/gistemp/tabledata_v3/NH.Ts+dSST.txt)
+
+```{r weather_data, cache=TRUE}
+
+#we load this file using read_csv, skipping the first (redundant) row and coding NASAs NA's (***) as "na"
+
+weather <- 
+  read_csv("https://data.giss.nasa.gov/gistemp/tabledata_v3/NH.Ts+dSST.csv", 
+           skip = 1, 
+           na = "***")
+
+```
+
+```{r inspecting_the_dataframe}
+
+#we inspect the dataframe's key variables and structure
+skim(weather)
+
+```
+There are only 5 relevant NA values, from August to December in the year 2019 (where data was not available at time of publication). Further, since each month observation forms a different column/variable, the dataset is in "Wide" format. We select year and the twelve month variables from the `weather` dataset. 
+
+
+```{r tidyweather}
+
+tidyweather<- weather %>% 
+  select(1:13) %>%    #We do not need the others (J-D, D-N, DJF, etc.)
+  pivot_longer(names_to= "month", values_to="delta", cols=2:13)     #Converting the dataframe from wide to                                                                       'long' format.
+
+#The variable containing the name of the month is named `month`, and the temperature deviation values are given the name `delta`.
+  
+```
+
+## Plotting Information
+
+
+**Let us plot the data using a time-series scatter plot, and add a trendline. To do that, we first need to create a new variable called `date` in order to ensure that the `delta` values are plotted chronologically.**
+
+```{r scatter_plot,fig.height=7, fig.width=10, fig.align="center",warning=FALSE}
+
+#we create a new variable, 'date' to ensure delta values are plotted chronologically
+
+tidyweather <- tidyweather %>%
+  mutate(date = ymd(paste(as.character(Year), month, "1")),
+         month = month(date, label=TRUE),
+         year = year(date))
+
+#we create a scatterplot with a smooth trendline (and a catchy title...)
+
+ggplot(tidyweather, aes(x=date, y = delta))+
+  geom_point()+
+  geom_smooth(color="red",size=0.5) +
+  theme_fivethirtyeight() +
+  labs(x="", y="Deviation From Expected Temperature (°C)",
+    title = "It's Getting Warmer in Here...", subtitle="Monthly temperature deviations relative to a 1951-1980 base period", caption=" Source: NASA Goddard Institute for Space Studies") +
+  theme(axis.title=element_text())
+    
+```
+
+**Is the effect of increasing temperature more pronounced in some months? Let's use `facet_wrap()` to produce a separate scatter plot for each month, again with a smoothing line.**
+
+```{r facet_wrap, fig.height=10, fig.width=18, fig.align="center",warning= FALSE}
+
+#creating a faceted plot of temperature deviations (delta) by month, across the years surveyed
+p1 <- ggplot(tidyweather, aes(x=date, y = delta))+
+  geom_point()+
+  geom_smooth(color="red",size=0.5) +
+  theme_fivethirtyeight() +
+  
+  labs(
+    x="", y="Deviation From Expected Temperature (°C)",
+    title = "Do Temperature Anomalies Vary
+by Month?",
+    subtitle="Temperature deviations by month relative to a 1951-1980 base period, from 1880 to 2019",     caption=" Source: NASA Goddard Institute for Space Studies"
+    ) +
+  
+  theme(
+        title=element_text(size=rel(1.5)),
+        axis.text.x=element_text(size=rel(1.1)),
+        axis.text.y=element_text(size=rel(1.1))
+        ) +
+  
+  facet_wrap(~month)
+
+#creating a plot showing mean monthly temperature deviations across the whole period
+p2 <- tidyweather %>% 
+  group_by(month) %>% 
+  summarise(mean=mean(delta, na.rm=TRUE)) %>% 
+  ggplot(aes(x=month, y=mean)) + 
+  geom_point() + 
+  #we add group=1 because instead of a line for each month, we want a single line for all months
+  geom_line(group=1,color="red") +
+  labs(
+    x="",
+    y="",
+    title="Temperature Deviation is Highest in Spring
+and Autumn",
+    subtitle="Mean monthly temperature deviation (1880-2019) relative to a 1951-1980 base period", caption=" Source: NASA Goddard Institute for Space Studies") + 
+  
+  theme_fivethirtyeight() + 
+  
+    theme(
+        title=element_text(size=rel(1.5)),
+        axis.text.x=element_text(size=rel(1.1)),
+        axis.text.y=element_text(size=rel(1.1))
+        )
+
+p1+p2
+
+```
+**Let us now analyse this historical data by splitting it up into various time periods to understand the evolution of Temperature and Climate Change **
+
+```{r intervals_comparison}
+
+#creating a new dataframe, 'comparison', which groups data in 5 time periods: 1881-1920, 1921-1950, 1951-1980, 1981-2010 and 2011-present
+#we remove data before 1800 using 'filter', and create a new variable 'interval' which contains ddata on which period each observation belongs to
+
+comparison <- tidyweather %>% 
+  filter(Year>= 1881) %>%     #remove years prior to 1881
+  #create new variable 'interval', and assign values based on criteria below:
+  mutate(interval = case_when
+         (
+    Year %in% c(1881:1920) ~ "1881-1920",
+    Year %in% c(1921:1950) ~ "1921-1950",
+    Year %in% c(1951:1980) ~ "1951-1980",
+    Year %in% c(1981:2010) ~ "1981-2010",
+    TRUE ~ "2011-present"
+  )
+  )
+
+```
+
+**Now that we have the `interval` variable, we can create a density plot to study the distribution of monthly deviations (`delta`), grouped by the different time periods we are interested in.**
+
+```{r density_plot, fig.height=7, fig.width=10, fig.align="center",warning=FALSE}
+
+#we create a dentiy plot which allows us to study the distribution of monthly temperature deviations across the time periods specified
+
+ggplot(comparison, aes(x=delta, fill=interval))+
+  geom_density(alpha=0.3) +   
+  theme_fivethirtyeight() +                
+  labs (
+    subtitle = "Distribution of monthly temperature anomalies across periods,
+    relative to a 1951-1980 base period",
+    title="Temperature Anomalies have Increased Sharply Across Periods",
+    x="Deviation From Expected Temperature (°C)",
+    y = "Density") +
+  
+  theme(
+    axis.title=element_text(size=rel(1.1), face= "bold") ,
+        legend.title=element_blank()
+        )
+
+```
+
+**Investigating Average Annual Anomalies**
+
+```{r average_annual_anomalies, fig.height=7, fig.width=15, fig.align="center"}
+
+#creating yearly averages
+average_annual_anomaly <- tidyweather %>% 
+  group_by(Year) %>%   #grouping data by Year
+  
+  # creating summaries for mean delta 
+  # use `na.rm=TRUE` to eliminate NA (not available) values 
+  summarise(annual_average_delta = mean(delta, na.rm=TRUE)) 
+
+#plotting the data:
+ggplot(average_annual_anomaly, aes(x=Year, y= annual_average_delta))+
+  geom_point()+
+  
+  #Fit the best fit line, using LOESS method
+  geom_smooth(colour="red",size=0.5) +
+  
+  #change to theme_bw() to have white background + black frame around plot
+  theme_bw() +
+  labs (
+    title = "Average Yearly Temperature Anomalies have Increased Exponentially Since 1960",
+    subtitle="Mean annual deviation from expected temperature (°C), relative to a 1951-1980 base period",
+    x="",
+    y = "Temperature Deviation (°C)"
+  ) +  
+  
+  theme_fivethirtyeight() + theme(axis.title=element_text(size=15),
+                                  axis.text=element_text(size=14))
+
+
+```
+
+Evaluating anomalies on an annual basis, we find not only that deviations have increased over the overall period surveyed, but that they have been increasing exponentially - the size of temperature anomalies increasing more in the past 20 years than in the previous 100.
+
+## Confidence Interval for `delta`
+
+**Constructing a confidence interval for the average annual delta since 2011, using a bootstrap simulation with the `infer` package.**
+
+```{r, calculate_CI_using_bootstrap}
+
+set.seed(1234) 
+
+# bootstrap for mean annual delta, from 2011-present, with 1000 replications:
+
+boot_delta <- comparison %>%
+  filter(interval=="2011-present") %>% 
+  specify(response = delta) %>%
+  generate(reps = 1000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+
+percentile_ci <- boot_delta %>%
+  get_ci(level = 0.95, type = "percentile")
+
+percentile_ci %>% 
+  select(c(lower_ci,upper_ci)) %>% 
+  kbl(col.names=c("Mean Annual Delta (2011-Present): Lower Limit", "Mean Annual Delta (2011-Present): Upper Limit")) %>%
+  kable_styling()
+
+```
+This bootstrap-calculated confidence interval demonstrates that the 95% confidence interval for average annual delta, from 2011-present, is 0.917-1.02 - almost identical to the output from the manual calculation.
+
+```{r, plotting_the_bootstrap_ci, fig.height=5, fig.width=12, fig.align="center"}
+
+#we plot this bootstrapped confidence interval as follows:
+
+visualize(boot_delta) + 
+  shade_ci(endpoints = percentile_ci,fill = "white")+
+  geom_vline(xintercept = percentile_ci$lower_ci, colour = "red")+
+  geom_vline(xintercept = percentile_ci$upper_ci, colour = "red") + theme_fivethirtyeight() + theme(axis.title=element_text()) +labs(x="Mean Annual Deviation From Expected Temperature (°C)", y="Count",title="Mean Annual Temperature Anomalies from 2011-Present", subtitle="Bootstrap-generated confidence interval (1000 simulations) for average annual temperature anomalies relative to a 1951-1980 base period")
+
+```
+
+
+These investigations demonstrate that monthly temperature deviations, versus a 1951-1980 base period, have been increasing sharply over the past 50 years. While there are no immediately evident patterns in monthly deviations over time, we find that mean deviations vary cyclically, and are greatest in Spring and Autumn months, peaking in March and October. This means that, relative to months in the 1951-1980 period, Spring and Autumn months have seen the greatest temperature increases in recent years. Exploring trends periodically, our initial overview of monthly deviations is ratified by the shifting distributions of monthly temperature anomalies across periods. It is evident that the periods 1981-2010 and 2011-present mark sharp upward deviations in temperature, on average, relative to the 1951-1980 base period, and to an even greater extent relative to the 1881-1920 period. Evaluating anomalies on an annual basis, we find not only that deviations have increased over the overall period surveyed, but that they have been increasing exponentially - the size of temperature anomalies increasing more in the past 20 years than in the previous 100.
+
+Having observed steep increases in monthly temperature deviations over time, as well as periodic and annual deviations, our confidence interval demonstrates that even the most conservative temperature anomalies, of 0.92, are likely to have severe repercussions according  to NASA's historical evaluation. As a whole, this data paints a worrying picture of the future of our planet and the need for urgent action to moderate exponential temperature increases which threaten the habitability of Earth. 

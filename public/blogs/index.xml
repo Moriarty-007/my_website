@@ -44,6 +44,15 @@
     </item>
     
     <item>
+      <title>Climate Change and Temperature Anomalies</title>
+      <link>/blogs/blog8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/blogs/blog8/</guid>
+      <description>To study climate change, we use: data on the Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies in the Northern Hemisphere at NASA’s Goddard Institute for Space Studies and the tabular data of temperature anomalies can be found here #we load this file using read_csv, skipping the first (redundant) row and coding NASAs NA&amp;#39;s (***) as &amp;quot;na&amp;quot; weather &amp;lt;- read_csv(&amp;quot;https://data.giss.nasa.gov/gistemp/tabledata_v3/NH.Ts+dSST.csv&amp;quot;, skip = 1, na = &amp;quot;***&amp;quot;) ## Parsed with column specification: ## cols( ## Year = col_double(), ## Jan = col_double(), ## Feb = col_double(), ## Mar = col_double(), ## Apr = col_double(), ## May = col_double(), ## Jun = col_double(), ## Jul = col_double(), ## Aug = col_double(), ## Sep = col_double(), ## Oct = col_double(), ## Nov = col_double(), ## Dec = col_double(), ## `J-D` = col_double(), ## `D-N` = col_double(), ## DJF = col_double(), ## MAM = col_double(), ## JJA = col_double(), ## SON = col_double() ## ) #we inspect the dataframe&amp;#39;s key variables and structure skim(weather)  (#tab:inspecting_the_dataframe)Data summary          Name  weather    Number of rows  140    Number of columns  19    _______________________     Column type frequency:     numeric  19    ________________________     Group variables  None     Variable type: numeric</description>
+    </item>
+    
+    <item>
       <title>Four days in Copenhagen</title>
       <link>/blogs/blog6/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
