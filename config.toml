@@ -82,7 +82,7 @@ disqusShortname = ""
     # To change the background image on the homepage banner, replace 'banner.jpg' in
     # the 'static/img' folder.
     title = "Hi, my name is Abhinav"
-    subtitle = "A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP\nAND RELEASED UNDER THE CREATIVE COMMONS."
+    subtitle = ""
     buttonText = "Get Started"
 
 
@@ -92,20 +92,20 @@ disqusShortname = ""
     # Display your showcases here.
     
     [[params.tiles.showcase]]
-      title = "NYT Masks "
-      subtitle = "How does Mask usage vary in the US"
+      title = "COVID-19 Death Rate Analysis for Different Demographics"
+      subtitle = "How does Comorbidities or admission to ICU affects the Fatal Rate"
       image = "pic07.jpg"
-      url = "blogs/blog5"
+      url = "blogs/blog9"
 
     [[params.tiles.showcase]]
       title = "Four days in Copenhagen"
-      subtitle = "Feugiat Amet Tempus"
+      subtitle = "Price of booking an airbnb in Copenhagen"
       image = "pic02.jpg"
       url = "blogs/blog6"
 
     [[params.tiles.showcase]]
       title = "Returns of Financial Stocks"
-      subtitle = "Analysis of Returns of Financial Stocks for preliminary Risk Assessment"
+      subtitle = "Analysis of Returns of Financial Stocks for preliminary Risk Analysis"
       image = "pic03.jpg"
       url = "blogs/blog7"
 
@@ -115,17 +115,17 @@ disqusShortname = ""
       image = "pic04.jpg"
       url = "blogs/blog8"
 
-    [[params.tiles.showcase]]
-      title = "Consequat"
-      subtitle = "Ipsum Dolor Sit Amet"
-      image = "pic05.jpg"
-      url = "blogs/ipsum"
+#    [[params.tiles.showcase]]
+#      title = "Consequat"
+#      subtitle = "Ipsum Dolor Sit Amet"
+#      image = "pic05.jpg"
+#      url = "blogs/ipsum"
 
-    [[params.tiles.showcase]]
-      title = "Etiam"
-      subtitle = "Feugiat Amet Tempus"
-      image = "pic06.jpg"
-      url = "blogs/ipsum"
+#    [[params.tiles.showcase]]
+#      title = "Etiam"
+#      subtitle = "Feugiat Amet Tempus"
+#      image = "pic06.jpg"
+#      url = "blogs/ipsum"
     # You can make more showcases by copy and pasting the code above
 
   [params.blog]
@@ -136,16 +136,16 @@ disqusShortname = ""
     # To add more blogs just copy and paste the code.
 
   # Section Type Two
-  [params.two]
-    enable = true
-    title = "Massa libero"
-    subtitle = """Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. 
-    Mauris aliquet magna magna sed nunc rhoncus pharetra. 
-    Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. 
-    Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero.
-    Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus."""
-    buttonText = "Get Started"
-    url = "blogs"
+#  [params.two]
+#    enable = true
+#    title = "Massa libero"
+#    subtitle = """Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. 
+#    Mauris aliquet magna magna sed nunc rhoncus pharetra. 
+#    Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. 
+#    Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero.
+#    Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus."""
+#    buttonText = "Get Started"
+#    url = "blogs"
 
 
   # Contact section
