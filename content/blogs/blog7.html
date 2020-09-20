@@ -26,8 +26,6 @@ library(tidyquant)
 library(kableExtra)
 library(ggrepel)
 library(patchwork)</code></pre>
-<div id="returns-of-financial-stocks" class="section level1">
-<h1>Returns of financial stocks</h1>
 <p>Here is the analysis on Returns of Financial Stock of a select few companies. We utilise the monthly, yearly and daily returns to gauge behaviour of these stock over a fixed period of time.</p>
 <pre class="r"><code># Read the dataset
 nyse &lt;- read_csv(here::here(&quot;data&quot;,&quot;nyse.csv&quot;))</code></pre>
@@ -187,7 +185,7 @@ glimpse(myStocks) # examine the structure of the resulting data frame</code></pr
 ## $ close    &lt;dbl&gt; 43.6, 44.2, 44.7, 44.5, 43.6, 43.4, 43.6, 44.7, 44.5, 44.9, …
 ## $ volume   &lt;dbl&gt; 43278500, 40036800, 50032500, 31606200, 69579400, 30098100, …
 ## $ adjusted &lt;dbl&gt; 33.3, 33.8, 34.2, 34.0, 33.4, 33.2, 33.4, 34.2, 34.0, 34.4, …</code></pre>
-<p><strong>(3) - Financial performance analysis depend on returns; If I buy a stock today for 100 and I sell it tomorrow for 101.75, my one-day return, assuming no transaction costs, is 1.75%. So given the adjusted closing prices, our first step is to calculate daily and monthly returns.</strong></p>
+<p><strong>- Financial performance analysis depend on returns; If I buy a stock today for 100 and I sell it tomorrow for 101.75, my one-day return, assuming no transaction costs, is 1.75%. So given the adjusted closing prices, our first step is to calculate daily and monthly returns.</strong></p>
 <pre class="r"><code>#calculate daily returns
 myStocks_returns_daily &lt;- myStocks %&gt;%
   tq_transmute(select     = adjusted, 
@@ -215,7 +213,7 @@ myStocks_returns_annual &lt;- myStocks %&gt;%
                type       = &quot;arithmetic&quot;,
                col_rename = &quot;yearly_returns&quot;,
                cols = c(nested.col))</code></pre>
-<p><strong>(4) - Creating a table where I summarise monthly returns for each of the stocks and <code>SPY</code>(Exchange Trade Fund); min, max, median, mean, SD.</strong></p>
+<p><strong>Creating a table where I summarise monthly returns for each of the stocks and <code>SPY</code>(Exchange Trade Fund); min, max, median, mean, SD.</strong></p>
 <pre class="r"><code>#We group the monthly returns data by symbol, and create the summary variables in summarise, before arranging by mean in descending order
 summary_monthly_stock_returns &lt;- myStocks_returns_monthly %&gt;% 
   
@@ -397,14 +395,14 @@ ANF
 <p><strong>(5) - Plot a density plot, using <code>geom_density()</code>, for each of the stocks</strong></p>
 <pre class="r"><code>#We create a density plot, with appropriately labelled axes and an appropriate title, faceted by stock ticker
 ggplot(myStocks_returns_monthly, aes(x=monthly_returns)) + 
-  geom_density() + 
+  geom_density() + theme_fivethirtyeight() +
   facet_wrap(~symbol) + 
   labs(x=&quot;Monthly Returns&quot;, y=&quot;Density&quot;, title=&quot;Density Plot of Monthly Returns for Stock Portfolio &amp; SP500 ETF&quot;)</code></pre>
 <p><img src="/blogs/blog7_files/figure-html/density_monthly_returns-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>The Tesla (TSLA) stock is most risky, since the distribution of monthly returns is widest, showing high variation. Further, it is skewed positively, meaning this variation falls around and below a return of 0.00%. While Abercrombie &amp; Fitch Co. (ANF) may seem similarly risky, this shows a higher peak, and therefore a narrower distribution, meaning less variation in monthly returns. This means it is a more certain, or less risky, investment.</p>
 <p>The least risky stock is Exxon Mobil (XOM), which has the highest peak of all the stock distributions. Despite being centred on a mode value of 0, as this has the narrowest distribution of monthly returns, it carries the highest certainty.</p>
 <p>Though SP500 ETF shows the least risk of all the assets by far, with an extremely narrow distribution, it is an index, not a stock.</p>
-<p><strong>(6) - Finally, we plot the expected monthly return (mean) of a stock on the Y axis and the risk (standard deviation) in the X-axis.</strong></p>
+<p><strong>Finally, we plot the expected monthly return (mean) of a stock on the Y axis and the risk (standard deviation) in the X-axis.</strong></p>
 <pre class="r"><code>#We create a standard scatter plot, labelling axes appropriately
 ggplot(summary_monthly_stock_returns, aes(x=SD, y=mean, label=symbol)) + theme_minimal() +
   geom_point(alpha=1) + 
@@ -414,4 +412,3 @@ of Monthly Returns&quot;) </code></pre>
 <p><img src="/blogs/blog7_files/figure-html/risk_return_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>This plot demonstrates that there is a generally positive correlation between mean and standard deviation of monthly returns, which is to be expected since investors willing to take on greater risk expect a higher return for it, otherwise the risk is not worth taking on.</p>
 <p>Yet, as we observed in the density plot above, while Abercrombie has high variability in its monthly returns (it is risky), its mean monthly return is actually negative. This, like Exxon Mobil, contradicts the general observed relationship between risk (monthly price variation, SD) and mean return, by having higher-than-expected variation given its low (~0.00%) mean monthly return.</p>
-</div>

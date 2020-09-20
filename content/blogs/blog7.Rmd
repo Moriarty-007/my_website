@@ -24,6 +24,22 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r Load_Libraries}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(fivethirtyeight)
+library(hrbrthemes)
+library(here)
+library(skimr)
+library(janitor)
+library(vroom)
+library(tidyquant)
+library(kableExtra)
+library(ggrepel)
+library(patchwork)
+```
 
 Here is the analysis on Returns of Financial Stock of a select few companies. We utilise the monthly, yearly and daily returns to gauge behaviour of these stock over a fixed period of time. 
 
@@ -141,7 +157,7 @@ kable_styling()
 
 #We create a density plot, with appropriately labelled axes and an appropriate title, faceted by stock ticker
 ggplot(myStocks_returns_monthly, aes(x=monthly_returns)) + 
-  geom_density() + 
+  geom_density() + theme_fivethirtyeight() +
   facet_wrap(~symbol) + 
   labs(x="Monthly Returns", y="Density", title="Density Plot of Monthly Returns for Stock Portfolio & SP500 ETF")
 

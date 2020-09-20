@@ -69,8 +69,8 @@ The Problem What is the best model to predict overall price of AirBnB accommodat
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/blogs/blog7/</guid>
-      <description>library(tidyverse) # Load ggplot2, dplyr, and all the other tidyverse packages library(mosaic) library(ggthemes) library(lubridate) library(fivethirtyeight) library(hrbrthemes) library(here) library(skimr) library(janitor) library(vroom) library(tidyquant) library(kableExtra) library(ggrepel) library(patchwork) Returns of financial stocks Here is the analysis on Returns of Financial Stock of a select few companies. We utilise the monthly, yearly and daily returns to gauge behaviour of these stock over a fixed period of time.
-# Read the dataset nyse &amp;lt;- read_csv(here::here(&amp;quot;data&amp;quot;,&amp;quot;nyse.</description>
+      <description>library(tidyverse) # Load ggplot2, dplyr, and all the other tidyverse packages library(mosaic) library(ggthemes) library(lubridate) library(fivethirtyeight) library(hrbrthemes) library(here) library(skimr) library(janitor) library(vroom) library(tidyquant) library(kableExtra) library(ggrepel) library(patchwork) Here is the analysis on Returns of Financial Stock of a select few companies. We utilise the monthly, yearly and daily returns to gauge behaviour of these stock over a fixed period of time.
+# Read the dataset nyse &amp;lt;- read_csv(here::here(&amp;quot;data&amp;quot;,&amp;quot;nyse.csv&amp;quot;)) After loading the New York Stock Exchange Data, Let’s look at the distribution of companies within different sectors.</description>
     </item>
     
   </channel>
