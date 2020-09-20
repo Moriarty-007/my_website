@@ -2,7 +2,7 @@
 date: "2020-09-20-"
 description: Returns of Financial Stocks.
 draft: false
-image: covid_death.jpg
+image: covid1.jpg
 keywords: ""
 slug: blog9
 title: COVID-19 Death Rate Analysis for Different Demographics

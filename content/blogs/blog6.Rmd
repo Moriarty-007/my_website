@@ -2,7 +2,7 @@
 date: "2020-09-20-"
 description: Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.
 draft: false
-image: pic07.jpg
+image: cph.jpg
 keywords: ""
 slug: blog6
 title: Four days in Copenhagen
