@@ -94,25 +94,25 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "COVID-19 Death Rate Analysis for Different Demographics"
       subtitle = "How does Comorbidities or admission to ICU affects the Fatal Rate"
-      image = "pic07.jpg"
+      image = "covid_death.jpg"
       url = "blogs/blog9"
 
     [[params.tiles.showcase]]
       title = "Four days in Copenhagen"
       subtitle = "Price of booking an airbnb in Copenhagen"
-      image = "pic02.jpg"
+      image = "cph.jpg"
       url = "blogs/blog6"
 
     [[params.tiles.showcase]]
       title = "Returns of Financial Stocks"
       subtitle = "Analysis of Returns of Financial Stocks for preliminary Risk Analysis"
-      image = "pic03.jpg"
+      image = "stock-market2-getty.jpg"
       url = "blogs/blog7"
 
     [[params.tiles.showcase]]
       title = "Climate Change and Temperature Anomalies"
       subtitle = "A study on Climate Change through Historical Temperature Data"
-      image = "pic04.jpg"
+      image = "climate_change.jpg"
       url = "blogs/blog8"
 
 #    [[params.tiles.showcase]]
@@ -138,7 +138,7 @@ disqusShortname = ""
   # Section Type Two
   [params.two]
     enable = true
-    title = "Suggestions or Enquiries"
+#    title = "Suggestions or Enquiries"
 #    subtitle = """Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. 
 #    Mauris aliquet magna magna sed nunc rhoncus pharetra. 
 #    Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. 
