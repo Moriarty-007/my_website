@@ -75,11 +75,11 @@ The Problem What is the best model to predict overall price of AirBnB accommodat
     </item>
     
     <item>
-      <title>Mask Acceptance</title>
-      <link>/blogs/blog5/</link>
+      <title>Returns of Financial Stocks</title>
+      <link>/blogs/blog7/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blogs/blog5/</guid>
+      <guid>/blogs/blog7/</guid>
       <description>library(tidyverse) # Load ggplot2, dplyr, and all the other tidyverse packages library(mosaic) library(ggthemes) library(lubridate) library(fivethirtyeight) library(hrbrthemes) library(here) library(skimr) library(janitor) library(vroom) library(tidyquant) library(kableExtra) library(ggrepel) library(patchwork) Returns of financial stocks Here is the analysis on Returns of Financial Stock of a select few companies. We utilise the monthly, yearly and daily returns to gauge behaviour of these stock over a fixed period of time.
 # Read the dataset nyse &amp;lt;- read_csv(here::here(&amp;quot;data&amp;quot;,&amp;quot;nyse.</description>
     </item>

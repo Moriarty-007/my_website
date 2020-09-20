@@ -5,7 +5,7 @@ draft: false
 image: pic07.jpg
 keywords: ""
 slug: blog7
-title: Returns of Financial Stocks
+title: Returns of Financial Stocks 
 ---
 
 ```{r setup, include=FALSE}
@@ -24,27 +24,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r Load_Libraries}
-library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
-library(mosaic)
-library(ggthemes)
-library(lubridate)
-library(fivethirtyeight)
-library(hrbrthemes)
-library(here)
-library(skimr)
-library(janitor)
-library(vroom)
-library(tidyquant)
-library(kableExtra)
-library(ggrepel)
-library(patchwork)
-```
-
-
-# Returns of financial stocks
 
 Here is the analysis on Returns of Financial Stock of a select few companies. We utilise the monthly, yearly and daily returns to gauge behaviour of these stock over a fixed period of time. 
+
 
 ```{r load_nyse_data, message=FALSE, warning=FALSE}
 
@@ -101,7 +83,7 @@ glimpse(myStocks) # examine the structure of the resulting data frame
 
 ```
 
-**(3) - Financial performance analysis depend on returns; If I buy a stock today for 100 and I sell it tomorrow for 101.75, my one-day return, assuming no transaction costs, is 1.75%. So given the adjusted closing prices, our first step is to calculate daily and monthly returns.**
+**- Financial performance analysis depend on returns; If I buy a stock today for 100 and I sell it tomorrow for 101.75, my one-day return, assuming no transaction costs, is 1.75%. So given the adjusted closing prices, our first step is to calculate daily and monthly returns.**
 
 ```{r calculate_returns, message=FALSE, warning=FALSE, cache=TRUE}
 
@@ -135,7 +117,7 @@ myStocks_returns_annual <- myStocks %>%
 
 ```
 
-**(4) - Creating a table where I summarise monthly returns for each of the stocks and `SPY`(Exchange Trade Fund); min, max, median, mean, SD.**
+**Creating a table where I summarise monthly returns for each of the stocks and `SPY`(Exchange Trade Fund); min, max, median, mean, SD.**
 
 ```{r summarise_monthly_returns}
 
@@ -172,7 +154,7 @@ The least risky stock is Exxon Mobil (XOM), which has the highest peak of all th
 
 Though SP500 ETF shows the least risk of all the assets by far, with an extremely narrow distribution, it is an index, not a stock. 
 
-**(6) - Finally, we plot the expected monthly return (mean) of a stock on the Y axis and the risk (standard deviation) in the X-axis.**
+**Finally, we plot the expected monthly return (mean) of a stock on the Y axis and the risk (standard deviation) in the X-axis.**
 
 ```{r risk_return_plot}
 
