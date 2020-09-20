@@ -55,6 +55,16 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
     </item>
     
     <item>
+      <title>Four days in Copenhagen</title>
+      <link>/blogs/blog6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/blogs/blog6/</guid>
+      <description>Executive Summary Overview The purpose of this report is to explore data on AirBnB listings in Copenhagen and understand the key drivers of price variability, specifically focused on the price for a 4-night stay for 2 guests.
+The Problem What is the best model to predict overall price of AirBnB accommodation in Copenhagen for 2 people wishing to spend 4 nights in the city?</description>
+    </item>
+    
+    <item>
       <title>Mask Acceptance</title>
       <link>/blogs/blog5/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
