@@ -8,7 +8,22 @@ slug: blog9
 title: COVID-19 Death Rate Analysis for Different Demographics
 ---
 
-# Challenge 1: CDC COVID-19 Public Use Data
+```{r load-libraries, include=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(httr)
+library(readxl)
+library(vroom)
+library(infer)
+library(patchwork)
+library(kableExtra)
+library(scales)
+```
 
 ```{r, cache=TRUE}
 
@@ -24,7 +39,7 @@ covid_data <- vroom(url)%>%
 ```
 
 
-**The objective here is to analyse COVID-19 death rate in different demographics like age, sex but also filtered by people having co-morbidities or not. Let us first generate the dataset**
+**The objective here is to analyse COVID-19 death rate in different demographics like age, sex but also subsetted by people having co-morbidities or not. Let us first generate the dataset**
 
 ```{r plot_1_data, echo=TRUE, results='hide'}
 
